@@ -22,7 +22,6 @@ public class TimetableController {
         this.timetableService = timetableService;
     }
 
-    // Save user input + generate timetable
     @PostMapping("/input")
     public String saveInputAndGenerate(@RequestBody TimetableInputDTO input) {
 
@@ -32,7 +31,6 @@ public class TimetableController {
         return "Timetable generated successfully";
     }
 
-    // Fetch generated timetable ONLY
     @GetMapping
     public List<Timetable> getTimetable() {
         return timetableService.getAllTimetables();
