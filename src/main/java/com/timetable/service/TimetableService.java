@@ -32,39 +32,34 @@ public class TimetableService {
         this.timetableRepository = timetableRepository;
     }
 
-    // =========================
-    // Save User Input (NO SQL)
-    // =========================
+  
     @Transactional
     public void saveUserInput(TimetableInputDTO input) {
 
-        // Clear old data
+        
         timetableRepository.deleteAll();
         subjectRepository.deleteAll();
         teacherRepository.deleteAll();
         roomRepository.deleteAll();
         timeSlotRepository.deleteAll();
 
-        // Save subjects
+     
         input.subjects.forEach(s ->
                 subjectRepository.save(
                         new Subject(s.name, s.sessionsPerWeek)
                 )
         );
 
-        // Save teachers
         input.teachers.forEach(t ->
                 teacherRepository.save(
                         new Teacher(t.name, t.subject)
                 )
         );
 
-        // Save rooms
         input.rooms.forEach(r ->
                 roomRepository.save(new Room(r))
         );
 
-        // Save time slots
         input.timeSlots.forEach(ts ->
                 timeSlotRepository.save(
                         new TimeSlot(
@@ -76,10 +71,6 @@ public class TimetableService {
                 )
         );
     }
-
-    // =========================
-    // AI Timetable Generator
-    // =========================
     @Transactional
     public List<Timetable> generateTimetable() {
 
@@ -127,17 +118,10 @@ public class TimetableService {
 
         return timetableRepository.saveAll(timetableList);
     }
-
-    // =========================
-    // FETCH ONLY (IMPORTANT)
-    // =========================
     public List<Timetable> getAllTimetables() {
         return timetableRepository.findAll();
     }
 
-    // =========================
-    // Helper Methods
-    // =========================
 
     private Teacher findTeacherForSubject(Subject subject, List<Teacher> teachers) {
         return teachers.stream()
