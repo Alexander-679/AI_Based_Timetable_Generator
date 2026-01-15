@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Timetable Generator</title>
+    <link rel="stylesheet" href="timetable.css">
+</head>
+<body>
+
+<div class="app-container">
+    <h1>📅 AI Timetable Generator</h1>
+    <p class="subtitle">Generate a conflict-free timetable instantly</p>
+
+    <div class="card">
+        <h2>Enter Details</h2>
+
+        <label>Subjects (Subject:Sessions)</label>
+        <textarea id="subjects" placeholder="Math:4, Physics:3, English:2"></textarea>
+
+        <label>Teachers (Teacher:Subject)</label>
+        <textarea id="teachers" placeholder="Mr. Rao:Math, Ms. Priya:Physics"></textarea>
+
+        <label>Rooms</label>
+        <input id="rooms" placeholder="Room A, Room B">
+
+        <label>Time Slots</label>
+        <textarea id="slots"
+          placeholder="Monday 09:00-10:00, Monday 10:00-11:00, Monday 12:00-13:00 (Break)">
+        </textarea>
+
+        <div class="button-group">
+            <p id="errorMsg" class="error"></p>
+            <button class="primary-btn" onclick="generateTimetable()">Generate Timetable</button>
+            <button class="secondary-btn" onclick="downloadPdf()">Download PDF</button>
+            <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+        </div>
+    </div>
+    <div id="loader" class="loader" style="display:none;"></div>
+
+
+    <div class="card">
+        <h2>Generated Timetable</h2>
+        <table id="timetable">
+            <tr>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Subject</th>
+                <th>Teacher</th>
+                <th>Room</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script src="timetable.js"></script>
+</body>
+</html>
