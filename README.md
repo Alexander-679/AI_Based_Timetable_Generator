@@ -1,216 +1,134 @@
-AI-Based Timetable Generator
+# AI-Based Timetable Generation System
 
-An AI-based timetable generator built using Java Spring Boot, MySQL, and HTML/CSS/JavaScript.
-The application allows users to enter academic details through a web interface and automatically generates a conflict-free timetable using rule-based AI logic. Users can also download the generated timetable as a PDF.
+This is a full-stack timetable scheduling application built using Java, Spring Boot, MySQL, HTML, CSS, and JavaScript. The system accepts academic input details and generates a conflict-free timetable using structured AI logic and constraint rules.
 
-1. Project Overview
+---
 
-Creating timetables manually is time-consuming and error-prone. This project solves that problem by automatically generating timetables based on user input such as subjects, teachers, rooms, and time slots while ensuring that all constraints are satisfied.
+## Overview
 
-The system uses constraint-based AI logic (not machine learning) to ensure:
+Manual timetable creation is error-prone and time-consuming. This system automates schedule generation while ensuring:
+- No teacher is booked more than once at the same time
+- No room is double-booked
+- Break times are respected
+- Subject session requirements are met
 
-No teacher is assigned to two classes at the same time
+This project demonstrates backend and frontend integration, REST APIs, rule-based logic, and PDF generation.
 
-No room is double-booked
+---
 
-Break times are respected
+## Tech Stack
 
-Subjects are scheduled according to their required weekly sessions
+- **Backend:** Java, Spring Boot  
+- **Database:** MySQL  
+- **Frontend:** HTML, CSS, JavaScript  
+- **PDF Generation:** OpenPDF  
+- **Build:** Maven  
+- **API Testing:** Postman
 
-2. Features
+---
 
-User-friendly web interface for entering timetable data
+## Features
 
-Automatic conflict-free timetable generation
+- Accepts timetable input via web interface  
+- Generates conflict-free schedule using rule-based logic  
+- Downloads generated timetable as a PDF  
+- Frontend validation and responsive layout  
+- API endpoints for generation and retrieval
 
-Rule-based AI logic for scheduling
+---
 
-Persistent data storage using MySQL
+## Project Structure
 
-Download generated timetable as a PDF
+src/
+├── controller/ # REST API endpoints
+├── service/ # Scheduling logic
+├── repository/ # Database access
+├── model/ # Entity classes
+├── resources/
+└── static/ # Frontend files (HTML, CSS, JS)
 
-Modern UI with validation, loading indicator, dark/light mode, and responsive design
+yaml
+Copy code
 
-3. Tech Stack
-Backend
+---
 
-Java 17+
+## API Endpoints
 
-Spring Boot
+| Method | Endpoint | Description |
+|-------|----------|-------------|
+| POST   | `/api/timetable/input` | Save input & generate timetable |
+| GET    | `/api/timetable`       | Fetch generated timetable |
+| GET    | `/api/timetable/download` | Download PDF of timetable |
 
-Spring Data JPA
+### Sample API Example
 
-Hibernate
+POST /api/timetable/input
+Content-Type: application/json
 
-MySQL
+{
+"subjects": [...],
+"teachers": [...],
+"rooms": [...],
+"timeSlots": [...]
+}
 
-OpenPDF (for PDF generation)
+yaml
+Copy code
 
-Frontend
+Use Postman to test endpoints.
 
-HTML
+---
 
-CSS
+## How to Run
 
-JavaScript (Fetch API)
+1. Clone the repository:
+```bash
+git clone https://github.com/Alexander-679/AI_Based_Timetable_Generator.git
+Install and configure MySQL:
 
-4. AI Logic Used
+Create database:
 
-This project uses rule-based / constraint-based AI, which is widely used in real-world scheduling systems.
-
-Constraints Applied:
-
-A teacher cannot teach more than one class at the same time
-
-A room cannot be allocated to multiple classes at the same time
-
-Break time slots are excluded from scheduling
-
-Each subject is scheduled according to its required sessions per week
-
-The algorithm follows a greedy scheduling approach, selecting the first valid time slot that satisfies all constraints.
-
-
-5. Project Architecture
-Frontend (HTML/CSS/JS)
-        ↓
-REST Controller (Spring Boot)
-        ↓
-Service Layer (AI Logic)
-        ↓
-Repository Layer (JPA)
-        ↓
-MySQL Database
-
-
-6. Database Design
-Tables
-
-subject
-
-teacher
-
-room
-
-time_slot
-
-timetable
-
-Hibernate automatically manages table creation and relationships using JPA annotations.
-
-7. REST API Endpoints
-Method	Endpoint	Description
-POST	/api/timetable/input	Save user input & generate timetable
-GET	/api/timetable	Fetch generated timetable
-GET	/api/timetable/download	Download timetable as PDF
-
-
-8. User Interface Features
-
-Clean card-based layout
-
-Input validation with error messages
-
-Loading spinner during timetable generation
-
-Dark / Light mode toggle
-
-Mobile responsive design
-
-Institute name and branding
-
-One-click PDF download
-
-▶️ How to Run the Project
-1️⃣ Clone the Repository
-git clone https://github.com/your-username/ai-timetable-generator.git
-
-2️⃣ Configure MySQL
-
-Create a database:
-
-CREATE DATABASE ai_timetable_db;
-
-
+sql
+Copy code
+CREATE DATABASE timetable_db;
 Update application.properties:
 
-spring.datasource.url=jdbc:mysql://localhost:3306/ai_timetable_db
+ini
+Copy code
+spring.datasource.url=jdbc:mysql://localhost:3306/timetable_db
 spring.datasource.username=root
 spring.datasource.password=your_password
-spring.jpa.hibernate.ddl-auto=update
+Build and run the application:
 
-3️⃣ Run the Application
-
-Run the Spring Boot application:
-
+bash
+Copy code
+mvn clean install
 mvn spring-boot:run
+Open browser and navigate to:
 
-4️⃣ Open in Browser
+bash
+Copy code
 http://localhost:8080/timetable.html
+Key Learnings
+Designed RESTful APIs using Spring Boot
 
-📄 PDF Export
+Applied rule-based scheduling logic
 
-Users can download the generated timetable as a PDF.
-The PDF is dynamically generated on the backend using OpenPDF and includes:
+Integrated frontend and backend workflows
 
-Title
+Generated downloadable PDF reports
 
-Timetable table (Day, Time, Subject, Teacher, Room)
+Used Spring Data JPA and MySQL
 
-Sample Input Example
+Future Enhancements
+Add authentication and role-based access
 
-Subjects
+Support multi-department scheduling
 
-Math:4, Physics:3, English:2
+Add unit and integration tests
 
-
-Teachers
-
-Mr. Rao:Math, Ms. Priya:Physics, Mrs. Anjali:English
-
-
-Rooms
-
-Room A, Room B
-
-
-Time Slots
-
-Monday 09:00-10:00,
-Monday 10:00-11:00,
-Monday 11:00-12:00,
-Monday 12:00-13:00 (Break),
-Tuesday 09:00-10:00,
-Tuesday 10:00-11:00
-
-10. Key Learnings
-
-Designing RESTful APIs using Spring Boot
-
-Applying rule-based AI logic for real-world problems
-
-Using Spring Data JPA to persist user input without SQL
-
-Handling transactions safely using @Transactional
-
-Frontend–backend integration using Fetch API
-
-Generating PDFs dynamically from backend data
-
-11. Future Enhancements
-
-Multiple classes / departments support
-
-Teacher availability constraints
-
-Timetable optimization for balanced distribution
-
-Export as Excel
-
-Authentication and role-based access
+Optimize scheduling algorithm for performance
 
 Author
-
 Sandrapati Alexander
-Java Backend Developer (Fresher)
-Passionate about backend development, system design, and building real-world applications using Java and Spring Boot.
+Final-year B.Tech student | Backend Developer
